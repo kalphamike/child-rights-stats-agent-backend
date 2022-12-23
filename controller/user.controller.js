@@ -21,17 +21,15 @@ exports.list = (req, res, next) => {
 
 exports.signin =  async (req, res, next) => {
     try {
-        console.log(req.body);
         const user = await userModel.findOne({email: req.body.email});
-        console.log(user);
-        if (!user) {return res.status(401).send('Invalid email.')}
+        if (!user) {
+            return res.status(401).send('Invalid email or password.');
+        }
 
         const validPassword = await bcrypt.compare(req.body.password, user.password);
-        console.log(validPassword);
-        if (!validPassword) {return res.status(401).send('Wrong password.')}
+        if (!validPassword) {return res.status(401).send('Invalid email or password.')}
 
         const token = user.generateAuthToken();
-        console.log(user);
         res.status(200).send({
             token:token,
             user: user

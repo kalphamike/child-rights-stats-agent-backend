@@ -10,6 +10,7 @@ const userSchema = new mongoose.Schema({
 	province: {type: String, require: true},
 	district: {type: String, require: true},
 	sector: {type: String, require: true},
+	cell: {type: String, require: true},
 	role: {type: String, require: true},
 	password: {type: String, require: true}
 });
