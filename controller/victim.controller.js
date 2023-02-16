@@ -1,16 +1,16 @@
-const caseModel = require('../model/cases.model');
+const VictimModel = require('../model/victims.model');
 
 exports.testing =(req, res, next) => {
     res.send('Admin Router Works well');
 }
 
 exports.list = (req, res, next) => {
-    caseModel.find()
+    VictimModel.find()
         .then((response) => {
             if(response){
                 res.status(200).send(response);
             } else {
-                res.status(404).send("No Case avaible")
+                res.status(404).send("No Victim avaible")
             }
         })
         .catch(err =>{
@@ -19,13 +19,13 @@ exports.list = (req, res, next) => {
 }
 
 
-exports.findByStatus = (req, res, next) => {
-    caseModel.find({status: req.query.status})
+exports.findByName  = (req, res, next) => {
+    VictimModel.find({status: req.query.status})
         .then((response) => {
             if(response){
                 res.status(200).send(response);
             } else {
-                res.status(404).send("No Case avaible")
+                res.status(404).send("No Victim avaible")
             }
         })
         .catch(err =>{
@@ -34,12 +34,12 @@ exports.findByStatus = (req, res, next) => {
 }
 
 exports.findByID = (req, res, next) => {
-    caseModel.findById( req.query.id)
+    VictimModel.findById( req.query.id)
         .then((response) => {
             if(response){
                 res.status(200).send(response);
             } else {
-                res.status(404).send("No Case avaible")
+                res.status(404).send("No Victim avaible")
             }
         })
         .catch(err =>{
@@ -50,9 +50,9 @@ exports.findByID = (req, res, next) => {
 
 
 exports.save = (req, res, next) => {
-    caseModel.create(req.body)
+    VictimModel.create(req.body)
         .then((response) => { 
-            res.status(200).send({message: 'Case Saved', case: response});
+            res.status(200).send({message: 'Victim Saved', case: response});
         })
         .catch(err =>{
             res.status(500).send("Server error:"+ err);
@@ -60,19 +60,20 @@ exports.save = (req, res, next) => {
 }
 
 exports.update = (req, res, next) => {
-    caseModel.findByIdAndUpdate(req.query.id,req.body)
+    VictimModel.findByIdAndUpdate(req.query.id,req.body)
         .then((response) => {
-            res.status(201).send({message: 'Case Updated', case: response});
+            
+            res.status(200).send({message: 'Victim Update', case: response});
         })
         .catch(err =>{
             res.status(500).send("Server error:"+ err);
         })
 }
 
-exports.removeCase = (req, res, next) => {
-    caseModel.findByIdAndDelete(rep.query.id)
+exports.remove = (req, res, next) => {
+    VictimModel.findByIdAndDelete(rep.query.id)
         .then((response) => {
-            res.status(200).send({message: 'Case Delete', case: response});
+            res.status(200).send({message: 'Victim Delete', case: response});
         })
         .catch(err =>{
             res.status(500).send("Server error:"+ err);
