@@ -98,22 +98,36 @@ exports.findBySector = (req, res, next) => {
 
 exports.findByID = (req, res, next) => {
    	userModel.findById(req.query.id)
-        .then((response) => {
-            if(response){
-                res.status(200).send(response);
-            } else {
-                res.status(404).send("No Case avaible")
-            }
-        })
-        .catch(err =>{
-            res.status(500).send("Server error:"+ err);
-        })
+    .then((response) => {
+        if(response){
+            res.status(200).send(response);
+        } else {
+            res.status(404).send("No Case avaible")
+        }
+    })
+    .catch(err =>{
+        res.status(500).send("Server error:"+ err);
+    })
+}
+
+exports.findByEmail = (req, res, next) => {
+    userModel.findOne({ email: req.query.email })
+    .then((response) => {
+        if(response){
+            res.status(201).send(response);
+        } else {
+            res.status(404).send("No Case avaible")
+        }
+    })
+    .catch(err =>{
+        res.status(500).send("Server error:"+ err);
+    })
 }
 
 exports.update = (req, res, next) => {
     userModel.findByIdAndUpdate(req.query.id,req.body)
         .then((response) => {            
-            res.status(200).send({message: 'User Updated', case: response});
+            res.status(201).send({message: 'Account updated ...', case: response});
         })
         .catch(err =>{
             res.status(500).send("Server error:"+ err);
@@ -123,7 +137,7 @@ exports.update = (req, res, next) => {
 exports.removeUser = (req, res, next) => {
     userModel.findByIdAndDelete(rep.query.id)
         .then((response) => {
-            res.status(200).send({message: 'User Deleted', case: response});
+            res.status(201).send({message: 'User Deleted', case: response});
         })
         .catch(err =>{
             res.status(500).send("Server error:"+ err);
