@@ -1,7 +1,6 @@
 const jwt = require('jsonwebtoken');
 const  mongoose = require('mongoose');
 
-
 const userSchema = new mongoose.Schema({
  	name: {type: String, require: true},
 	nid: {type: String, require: true},
@@ -12,7 +11,15 @@ const userSchema = new mongoose.Schema({
 	sector: {type: String, require: true},
 	cell: {type: String, require: true},
 	role: {type: String, require: true},
-	password: {type: String, require: true}
+	password: {type: String, require: true},
+	status: {
+		type: String,
+		default: 'active',
+		enum: {
+			values: ['active', 'banned'],
+			message: '{VALUE} is 	not supported'
+		}
+	},
 });
 
 userSchema.methods.generateAuthToken = function() {

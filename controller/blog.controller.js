@@ -61,7 +61,7 @@ exports.attachFile = (req, res, next) => {
 exports.save = (req, res, next) => {
     blogModel.create(req.body)
     .then((response) => { 
-        res.status(201).send({ message: 'Blog Saved', blog: response });
+        res.status(201).send({ message: 'Infashanyigisho yabitwe', blog: response });
     })
     .catch(err =>{ res.status(500).send("Server error:"+ err) })
 }
@@ -69,15 +69,15 @@ exports.save = (req, res, next) => {
 exports.update = (req, res, next) => {
     blogModel.findByIdAndUpdate(req.query.id,req.body)
     .then((response) => {
-        res.status(201).send({message: 'blog Update', blog: response});
+        res.status(201).send({message: 'Infashanyigisha yahinduwe', blog: response});
     })
-    .catch(err =>{ res.status(500).send("Server error:"+ err) })
+    .catch(err =>{ res.status(500).send("Server error:"+ err) });
 }
 
 exports.removeBlog = (req, res, next) => {
     blogModel.findByIdAndDelete(rep.query.id)
     .then((response) => {
-        res.status(201).send({message: 'Blog Delete', blog: response});
+        res.status(201).send({message: 'Infashanyigisho yasibwe', blog: response});
     })
     .catch(err =>{ res.status(500).send("Server error:"+ err) })
 }
